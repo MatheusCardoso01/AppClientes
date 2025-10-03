@@ -112,7 +112,7 @@ public class ClienteRepositorio
                 System.Console.Write("Qual o ID do cliente a ser editado? ");
                 IdEscolhido = int.Parse(Console.ReadLine());
 
-                Cliente ClienteEncontrado = VerificarSeIdValido(IdEscolhido);
+                Cliente? ClienteEncontrado = VerificarSeIdValido(IdEscolhido);
 
 
                 if (ClienteEncontrado != null)
@@ -182,7 +182,7 @@ public class ClienteRepositorio
                 System.Console.Write("Qual o ID do cliente a ser Removido? ");
                 IdEscolhido = int.Parse(Console.ReadLine());
 
-                Cliente ClienteEncontrado = VerificarSeIdValido(IdEscolhido);
+                Cliente? ClienteEncontrado = VerificarSeIdValido(IdEscolhido);
 
 
                 if (ClienteEncontrado != null)
@@ -195,8 +195,6 @@ public class ClienteRepositorio
             }
             catch (Exception exception)
             {
-                System.Console.WriteLine("ID Inválido. Insira qualquer tecla para continuar ou 'n' para encerrar a aplicação. Depois Aperte Enter");
-
                 var decisao = Console.ReadLine();
 
                 if (decisao == "n")
