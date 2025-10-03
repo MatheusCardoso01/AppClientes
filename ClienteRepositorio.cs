@@ -195,6 +195,8 @@ public class ClienteRepositorio
             }
             catch (Exception exception)
             {
+                System.Console.WriteLine("ID Inválido. Insira qualquer tecla para continuar ou 'n' para encerrar a aplicação. Depois Aperte Enter");
+
                 var decisao = Console.ReadLine();
 
                 if (decisao == "n")
