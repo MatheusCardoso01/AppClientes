@@ -9,6 +9,25 @@ public class ClienteRepositorio
     public List<Cadastro.Cliente> clientes = new List<Cadastro.Cliente>();
     private static int proximoID;
 
+    public void GravarDadosCliente()
+    {
+        var json = System.Text.Json.JsonSerializer.Serialize(clientes);
+
+        File.WriteAllText("clientes.txt", json);
+    }
+
+    public void LerDadosClientes()
+    {
+        if (File.Exists("clientes.txt"))
+        {
+            var dados = File.ReadAllText("clientes.txt");
+
+            var clientesArquivo = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(dados);
+
+            clientes.AddRange(clientesArquivo);
+        }
+    }
+
     public void imprimirCliente(Cliente cliente)
     {
         System.Console.WriteLine("---------INFORMAÇÕES DO CLIENTE--------");
@@ -17,6 +36,12 @@ public class ClienteRepositorio
         System.Console.WriteLine("Desconto: " + cliente.Desconto);
         System.Console.WriteLine("Data de Nascimento: " + cliente.DataNascimento);
         System.Console.WriteLine("Data de Cadastro: " + cliente.CadastradoEm);
+
+        if (cliente.DadosAtualizadosEm != null)
+        {
+            System.Console.WriteLine("Dados Atualizados em: " + cliente.DadosAtualizadosEm);
+        }
+
         System.Console.WriteLine("---------------------------------------");
     }
 
@@ -73,6 +98,8 @@ public class ClienteRepositorio
     private void ConfirmarDadosCadastro(Cliente cliente)
     {
         Console.Clear();
+
+
         imprimirCliente(cliente);
 
         System.Console.WriteLine("Os dados estão corretos? (s/n)");
@@ -84,6 +111,8 @@ public class ClienteRepositorio
             {
                 clientes.Add(cliente);
                 proximoID++;
+                System.Console.WriteLine("Cliente cadastrado com sucesso. Pressione qualquer tecla para voltar ao menu");
+                Console.ReadKey();
                 break;
             }
             else if (verificacaoDados == "n")
@@ -112,12 +141,12 @@ public class ClienteRepositorio
                 System.Console.Write("Qual o ID do cliente a ser editado? ");
                 IdEscolhido = int.Parse(Console.ReadLine());
 
+                //var ClienteEncontrado = clientes.FirstOrDefault(p => p.id == IdEscolhido);
                 Cliente? ClienteEncontrado = VerificarSeIdValido(IdEscolhido);
 
 
                 if (ClienteEncontrado != null)
                 {
-                    imprimirCliente(ClienteEncontrado);
                     AtualizarDadosCliente(ClienteEncontrado);
                     break;
                 }
@@ -142,6 +171,8 @@ public class ClienteRepositorio
     {
         Console.Clear();
 
+        imprimirCliente(cliente);
+
         System.Console.WriteLine("---INSIRA OS DADOS ATUALIZADOS---");
         System.Console.Write("Nome do Cliente: ");
         cliente.Nome = Console.ReadLine();
@@ -151,6 +182,8 @@ public class ClienteRepositorio
 
         System.Console.Write("Desconto: ");
         cliente.Desconto = Decimal.Parse(Console.ReadLine());
+
+        cliente.DadosAtualizadosEm = DateTime.Now;
     }
 
     private Cliente? VerificarSeIdValido(int IdEscolhido)
@@ -189,6 +222,8 @@ public class ClienteRepositorio
                 {
                     imprimirCliente(ClienteEncontrado);
                     clientes.Remove(ClienteEncontrado);
+                    System.Console.WriteLine("Cliente removido com sucesso. Aperte qualquer tecla para voltar ao Menu.");
+                    Console.ReadKey();
                     break;
                 }
 

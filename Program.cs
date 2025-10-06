@@ -4,19 +4,28 @@ namespace AppClientes;
 
 class Program
 {
+    static ClienteRepositorio gerenciarClientes = new ClienteRepositorio();
     static void Main(string[] args)
     {
-        ClienteRepositorio gerenciarClientes = new ClienteRepositorio();
+        gerenciarClientes.LerDadosClientes();
 
         while (true)
         {
             Console.Clear();
             Menu();
 
+            System.Console.Write("Escolha uma opção: ");
             string escolhaMenu = Console.ReadLine();
 
-
-            EscolhaMenu(gerenciarClientes, escolhaMenu);
+            if (!string.IsNullOrEmpty(escolhaMenu))
+            {
+                EscolherOpcao(escolhaMenu);
+            }
+            else
+            {
+                System.Console.WriteLine("Valor Nulo. Aperte quelquer tecla para tentar novamente.");
+                Console.ReadKey();
+            }
         }
     }
 
@@ -32,7 +41,7 @@ class Program
         System.Console.WriteLine("--------------------");
     }
 
-    static void EscolhaMenu(ClienteRepositorio gerenciarClientes, string escolhaMenu)
+    static void EscolherOpcao(string escolhaMenu)
     {
         switch (escolhaMenu)
         {
@@ -49,11 +58,13 @@ class Program
                 gerenciarClientes.RemoverCliente();
                 break;
             case "5":
+                gerenciarClientes.GravarDadosCliente();
                 Console.WriteLine("Encerrando aplicação...");
                 Environment.Exit(0);
                 break;
             default:
-                System.Console.WriteLine("Tecla Incorreta. Escolha um valor de 1 a 5.");
+                System.Console.WriteLine("Tecla Incorreta. Escolha um valor de 1 a 5. Aperte qualquer tecla para continuar.");
+                Console.ReadKey();
                 break;
         }
     }

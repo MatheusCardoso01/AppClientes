@@ -1,0 +1,1 @@
+[{"id":1,"Nome":"Matheus Cardoso","DataNascimento":"1992-06-30","CadastradoEm":"2025-10-06T10:13:54.8376239-03:00","Desconto":60000,"DadosAtualizadosEm":"2025-10-06T10:14:40.1726818-03:00"},{"id":1,"Nome":"Luiz Marques","DataNascimento":"2000-08-12","CadastradoEm":"2025-10-06T10:15:42.6570192-03:00","Desconto":12000,"DadosAtualizadosEm":null}]

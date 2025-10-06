@@ -7,5 +7,7 @@ public class Cliente
     public DateOnly? DataNascimento { get; set; }
     public DateTime CadastradoEm { get; set; }
     public Decimal Desconto { get; set; }
+
+    public DateTime? DadosAtualizadosEm { get; set; }
     
 }
